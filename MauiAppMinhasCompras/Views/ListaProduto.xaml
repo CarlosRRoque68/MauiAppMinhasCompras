@@ -3,17 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="MauiAppMinhasCompras.Views.ListaProduto"
              Title="Minhas Compras">
-    
+
     <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Somar" />
+        <ToolbarItem Text="Somar" Clicked="ToolbarItem_clicked_1" />
         <ToolbarItem Text="Adicionar" Clicked="ToolbarItem_Clicked" />
     </ContentPage.ToolbarItems>
 
+    <Grid RowDefinitions="Auto, *">
 
-            <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+        <SearchBar Grid.Row="0"
+                   x:Name="txt_search" 
+                   Placeholder="Busca de Produtos" 
+                   TextChanged="txt_search_TextChanged"/>
+
+        <ListView Grid.Row="1" 
+                  x:Name="lst_produtos">
+            <ListView.Header>
+                <Grid ColumnDefinitions="*, *, *, *, *">
+                    <Label Grid.Column="0" Text="ID" FontAttributes="Bold" />
+                    <Label Grid.Column="1" Text="Descrição" FontAttributes="Bold" />
+                    <Label Grid.Column="2" Text="Preço" FontAttributes="Bold" />
+                    <Label Grid.Column="3" Text="Qnt" FontAttributes="Bold" />
+                    <Label Grid.Column="4" Text="Total" FontAttributes="Bold" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.ContextActions>
+                            <MenuItem Text="Remover" Clicked="MenuItem_Clicked" />
+                        </ViewCell.ContextActions>
+                        <Grid ColumnDefinitions="*, *, *, *, *">
+                            <Label Grid.Column="0" Text="{Binding Id}" />
+                            <Label Grid.Column="1" Text="{Binding Descricao}" />
+                            <Label Grid.Column="2" Text="{Binding Preco, StringFormat='{0:C}'}" />
+                            <Label Grid.Column="3" Text="{Binding Quantidade}" />
+                            <Label Grid.Column="4" Text="{Binding Total, StringFormat='{0:C}'}" />
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </Grid>
+
 </ContentPage>
